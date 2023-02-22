@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'HomeScreen.dart';
-import 'CalendarScreen.dart';
-import 'EditPeriodScreen.dart';
-import 'MemoScreen.dart';
+import 'home_screen.dart';
+import 'calendar_screen.dart';
+import 'edit_period_screen.dart';
+import 'memo_screen.dart';
 
 void main() {
   runApp(const MyApp());

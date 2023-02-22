@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:period/constants.dart';
 
 class MemoScreen extends StatefulWidget {
   const MemoScreen({Key? key}) : super(key: key);
@@ -10,7 +11,9 @@ class MemoScreen extends StatefulWidget {
 class _MemoScreenState extends State<MemoScreen> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp();
+    return const Scaffold(
+      backgroundColor: mainBgColor,
+    );
   }
 }
 

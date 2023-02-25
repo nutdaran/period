@@ -1,14 +1,17 @@
+import 'package:circular/circular.dart';
 import 'package:flutter/material.dart';
-import 'package:period/constants.dart';
+import 'constants.dart';
 
-class MemoScreen extends StatefulWidget {
-  const MemoScreen({Key? key}) : super(key: key);
+class EditCycleScreen extends StatefulWidget {
+  const EditCycleScreen({Key? key}) : super(key: key);
 
   @override
-  State<MemoScreen> createState() => _MemoScreenState();
+  State<EditCycleScreen> createState() => _EditCycleScreenState();
 }
 
-class _MemoScreenState extends State<MemoScreen> {
+class _EditCycleScreenState extends State<EditCycleScreen> {
+  int cycleLength=0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +53,39 @@ class _MemoScreenState extends State<MemoScreen> {
           ),
         ),
         Container(
+          margin: const EdgeInsets.only(top: 40),
+          child: CircularSlider(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                boxShadow: const [
+                  BoxShadow(
+                      offset: Offset(-10, -10),
+                      color: Colors.white,
+                      blurRadius: 20,
+                      spreadRadius: 1),
+                  BoxShadow(
+                      offset: Offset(10, 10),
+                      color: Color.fromARGB(155, 158, 158, 158),
+                      blurRadius: 15,
+                      spreadRadius: 1)
+                ]),
+            maxValue: 40,
+            radius: 120,
+            child: Text(
+              cycleLength.toString(),
+              style: TextStyle(fontSize: 30, fontFamily: 'Lato'),
+            ),
+            color: Color(0xfffEEEEE),
+            sliderColor: primaryColor,
+            unSelectedColor: Colors.white70,
+            onDrag: (value) {
+              setState(() {
+                this.cycleLength = value;
+              });
+            },
+          ),
+        ),
+        Container(
             margin: EdgeInsets.only(top:70,left: 40,right: 40),
             child: ElevatedButton(
                 onPressed: () {
@@ -77,4 +113,3 @@ class _MemoScreenState extends State<MemoScreen> {
     );
   }
 }
-

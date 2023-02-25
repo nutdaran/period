@@ -1,3 +1,4 @@
+import 'package:draggable_home/draggable_home.dart';
 import 'package:flutter/material.dart';
 import 'Element/floating_bottom_nav_bar.dart';
 import 'constants.dart';
@@ -12,10 +13,43 @@ class CalendarScreen extends StatefulWidget {
 class _CalendarScreenState extends State<CalendarScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: primaryColor,
       extendBody: true,
-      bottomNavigationBar: FloatingBottomNavBar(),
+      bottomNavigationBar: FloatingBottomNavBar(), 
+      body: DraggableHome(
+          title: Text("hello"),
+          headerWidget: calendarWidget(context),
+      body: [
+
+      ],),
+    );
+  }
+
+  Widget calendarWidget(BuildContext context){
+    return Container(
+      child: ElevatedButton(
+          onPressed: () {
+            print('save data and load the home screen');
+            Navigator.pop(context);
+          },
+          style: ElevatedButton.styleFrom(
+              backgroundColor: doneButtonColor,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10))),
+          child: const SizedBox(
+            width: 300,
+            height:60,
+            child: Center(
+              child: Text("Save",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontFamily: 'Lato'),
+              ),
+            ),
+          )),
     );
   }
 }

@@ -3,9 +3,17 @@ import 'package:number_slide_animation/number_slide_animation.dart';
 import 'package:period/constants.dart';
 import 'package:period/Element/floating_bottom_nav_bar.dart';
 import 'package:circular/circular.dart';
+import 'package:period/edit_cycle_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int cycleLength = 23;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +63,7 @@ class HomeScreen extends StatelessWidget {
               value: 5,
               //parameter = number of day before ovulation
               sliderColor: primaryColor,
-              unSelectedColor: Colors.white38,
+              unSelectedColor: Colors.white70,
               textStyle: const TextStyle(
                   color: blackColor, fontSize: 30, fontFamily: 'Lato'),
               decoration: BoxDecoration(
@@ -82,8 +90,8 @@ class HomeScreen extends StatelessWidget {
             margin: const EdgeInsets.only(top: 30, left: 40, right: 40),
             child: ElevatedButton(
               onPressed: () {
-                print('load edit period screen');
-                Navigator.pushNamed(context, '/editPeriod');
+                print('load edit cycle length screen');
+                Navigator.pushNamed(context, '/editCycle');
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -107,8 +115,8 @@ class HomeScreen extends StatelessWidget {
                         ),
                         Container(
                           child: NumberSlideAnimation(
-                            number: "5",
-                            textStyle: TextStyle(
+                            number: "$cycleLength",
+                            textStyle: const TextStyle(
                                 color: blackColor,
                                 fontSize: 30,
                                 fontFamily: 'Lato'),
@@ -127,7 +135,7 @@ class HomeScreen extends StatelessWidget {
             margin: const EdgeInsets.only(top: 30, left: 40, right: 40),
             child: ElevatedButton(
               onPressed: () {
-                print('load edit period screen');
+                print('load edit period length screen');
                 Navigator.pushNamed(context, '/editPeriod');
               },
               style: ElevatedButton.styleFrom(
@@ -153,7 +161,7 @@ class HomeScreen extends StatelessWidget {
                         Container(
                           child: NumberSlideAnimation(
                             number: "4",
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                                 color: blackColor,
                                 fontSize: 30,
                                 fontFamily: 'Lato'),

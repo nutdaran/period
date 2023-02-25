@@ -16,7 +16,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     return Scaffold(
       backgroundColor: primaryColor,
       extendBody: true,
-      bottomNavigationBar: FloatingBottomNavBar(), 
+      bottomNavigationBar: const FloatingBottomNavBar(page: 2,),
       body: DraggableHome(
           title: Text("hello"),
           headerWidget: calendarWidget(context),
@@ -31,7 +31,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       child: ElevatedButton(
           onPressed: () {
             print('save data and load the home screen');
-            Navigator.pop(context);
+            Navigator.pushNamed(context, '/memo');
           },
           style: ElevatedButton.styleFrom(
               backgroundColor: doneButtonColor,

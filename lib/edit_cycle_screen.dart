@@ -33,7 +33,7 @@ class _EditCycleScreenState extends State<EditCycleScreen> {
       backgroundColor: mainBgColor,
       body: Column(children: [
         Container(
-          margin: const EdgeInsets.only(top: 80, left: 40, right: 40),
+          margin: const EdgeInsets.only(left: 40, right: 40),
           child: Row(
             children: const [
               Text(
@@ -53,7 +53,7 @@ class _EditCycleScreenState extends State<EditCycleScreen> {
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(top: 40),
+          margin: const EdgeInsets.only(top: 80),
           child: CircularSlider(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
@@ -75,7 +75,7 @@ class _EditCycleScreenState extends State<EditCycleScreen> {
               cycleLength.toString(),
               style: TextStyle(fontSize: 30, fontFamily: 'Lato'),
             ),
-            color: Color(0xfffEEEEE),
+            color: Color(0xfffec9c9),
             sliderColor: primaryColor,
             unSelectedColor: Colors.white70,
             onDrag: (value) {
@@ -86,7 +86,7 @@ class _EditCycleScreenState extends State<EditCycleScreen> {
           ),
         ),
         Container(
-            margin: EdgeInsets.only(top:70,left: 40,right: 40),
+            margin: EdgeInsets.only(top:160,left: 40,right: 40),
             child: ElevatedButton(
                 onPressed: () {
                   print('save data and load the home screen');

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:period/constants.dart';
 
 class FloatingBottomNavBar extends StatelessWidget {
-  const FloatingBottomNavBar({Key? key}) : super(key: key);
-  // final int currentPage = 1;
+  const FloatingBottomNavBar({required this.page});
+
+  final int page;
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +36,8 @@ class FloatingBottomNavBar extends StatelessWidget {
                 },
               child: Icon(Icons.home,
                   size: 40,
-                  // color: currentPage == 1 ? primaryColor : blackColor)
-                color: blackColor,),
-          ),
+                  color: page == 1 ? primaryColor : blackColor)
+                ),
           GestureDetector(
               onTap: () {
                 print('load the home screen');
@@ -46,8 +46,7 @@ class FloatingBottomNavBar extends StatelessWidget {
                 },
               child: Icon(Icons.calendar_today,
                   size: 38,
-                  color: blackColor)
-                  // color: currentPage == 2 ? primaryColor : blackColor)
+                  color: page == 2 ? primaryColor : blackColor)
           )
         ],
       ),

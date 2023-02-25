@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: const Color(0xfffffdfd),
       extendBody: true,
-      bottomNavigationBar: const FloatingBottomNavBar(), // input pageid
+      bottomNavigationBar: const FloatingBottomNavBar(page: 1,), // input pageid
       body: Column(
         children: <Widget>[
           /***
@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: CircularViewer(
               maxValue: 60,
               radius: 100,
-              color: const Color(0xfffEEEEE),
+              color: const Color(0xfffec9c9),
               value: 5,
               //parameter = number of day before ovulation
               sliderColor: primaryColor,

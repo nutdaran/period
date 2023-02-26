@@ -4,6 +4,7 @@ import 'package:period/constants.dart';
 import 'package:period/Element/floating_bottom_nav_bar.dart';
 import 'package:circular/circular.dart';
 import 'package:period/edit_cycle_screen.dart';
+import 'package:period/edit_period_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -13,7 +14,29 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int cycleLength = 23;
+  int cycleLength = 0;
+  int periodLength = 0;
+  double countdownDay = 5;
+
+  _editCycle(BuildContext context) async {
+    final int res = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => EditCycleScreen(cycleLength: cycleLength,)),
+    );
+    setState(() {
+      cycleLength = res;
+      print('return value is $cycleLength');
+    });}
+
+  _editPeriod(BuildContext context) async {
+    final int res = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => EditPeriodScreen(periodLength: periodLength)),
+    );
+    setState(() {
+      periodLength = res;
+      print('return value is $periodLength');
+    });}
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
               maxValue: 60,
               radius: 100,
               color: const Color(0xfffec9c9),
-              value: 5,
+              value: countdownDay,
               //parameter = number of day before ovulation
               sliderColor: primaryColor,
               unSelectedColor: Colors.white70,
@@ -91,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ElevatedButton(
               onPressed: () {
                 print('load edit cycle length screen');
-                Navigator.pushNamed(context, '/editCycle');
+                _editCycle(context);
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -114,9 +137,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontFamily: 'Lato'),
                         ),
                         Container(
-                          child: NumberSlideAnimation(
-                            number: "$cycleLength",
-                            textStyle: const TextStyle(
+                          child: Text("$cycleLength",
+                            style: const TextStyle(
                                 color: blackColor,
                                 fontSize: 30,
                                 fontFamily: 'Lato'),
@@ -136,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ElevatedButton(
               onPressed: () {
                 print('load edit period length screen');
-                Navigator.pushNamed(context, '/editPeriod');
+                _editPeriod(context);
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -159,9 +181,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontFamily: 'Lato'),
                         ),
                         Container(
-                          child: NumberSlideAnimation(
-                            number: "4",
-                            textStyle: const TextStyle(
+                          child: Text("$periodLength",
+                            style: const TextStyle(
                                 color: blackColor,
                                 fontSize: 30,
                                 fontFamily: 'Lato'),

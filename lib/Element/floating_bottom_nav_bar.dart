@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:period/calendar_screen.dart';
 import 'package:period/constants.dart';
+import 'package:period/home_screen.dart';
 
 class FloatingBottomNavBar extends StatelessWidget {
   const FloatingBottomNavBar({required this.page});
@@ -31,7 +33,10 @@ class FloatingBottomNavBar extends StatelessWidget {
           GestureDetector(
               onTap: () {
                 print('load the home screen');
-                Navigator.pushNamed(context, '/');
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) {
+                      return const HomeScreen();
+                }));
                 // currentPage = 1;
                 },
               child: Icon(Icons.home,
@@ -41,7 +46,11 @@ class FloatingBottomNavBar extends StatelessWidget {
           GestureDetector(
               onTap: () {
                 print('load the home screen');
-                Navigator.pushNamed(context, '/calendar');
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context)
+                {
+                  return const CalendarScreen();
+                }));
                 // currentPage = 2;
                 },
               child: Icon(Icons.calendar_today,

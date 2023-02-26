@@ -74,6 +74,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///Users/nutdaran/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.18.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "lints",
       "rootUri": "file:///Users/nutdaran/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/lints-2.0.1",
       "packageUri": "lib/",
@@ -116,6 +122,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "simple_gesture_detector",
+      "rootUri": "file:///Users/nutdaran/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/simple_gesture_detector-0.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///Users/nutdaran/flutter/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -146,6 +158,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "table_calendar",
+      "rootUri": "file:///Users/nutdaran/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/table_calendar-3.0.9",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "term_glyph",
       "rootUri": "file:///Users/nutdaran/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.2.1",
       "packageUri": "lib/",
@@ -170,7 +188,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-02-25T06:00:17.570134Z",
+  "generated": "2023-02-25T15:59:20.895872Z",
   "generator": "pub",
   "generatorVersion": "2.18.6"
 }

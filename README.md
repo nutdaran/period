@@ -1,16 +1,22 @@
 # period
+Mahidol University International College
+Computer Science major
+ICCS 448 Mobile Application Development
+This project submitted to Aj.Boonyanit Mathayomchan
+Submitted by: Daran Thawornwattanapol 6380413
 
-A new Flutter project.
+## Pain point
 
-## Getting Started
+Many women, including me, often forgot their ovulation day of period.
+When time comes, we always need to ask for sanitary napkin from everyone. Therefore, 
+I decided to create an application that help reminding the user the ovulation date and
+make a note of period blood to use for further purpose like seeing an obstetrician.
 
-This project is a starting point for a Flutter application.
+## Features
+- showing the next ovulation day
+- calculate the next ovulation day
+- memo the color, texture, and flow of the period
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## UI design
+Figma:
+[https://www.figma.com/file/vOHJWJYWtpEZ5fNhbL7zNv/Period?node-id=0%3A1&t=17pWGD279w6XOZEP-1]

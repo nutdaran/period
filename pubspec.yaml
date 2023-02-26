@@ -39,6 +39,7 @@ dependencies:
   circular: ^0.0.5
   number_slide_animation: ^0.2.1
   draggable_home: ^1.0.2
+  table_calendar: ^3.0.9
 
 dev_dependencies:
   flutter_test:

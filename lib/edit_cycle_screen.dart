@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 
 class EditCycleScreen extends StatefulWidget {
-  const EditCycleScreen({Key? key}) : super(key: key);
+  int cycleLength=0;
+  EditCycleScreen({super.key,  required this.cycleLength });
 
   @override
   State<EditCycleScreen> createState() => _EditCycleScreenState();
 }
 
 class _EditCycleScreenState extends State<EditCycleScreen> {
-  int cycleLength=0;
-
+  // int cycleLength; // shared pref
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +72,7 @@ class _EditCycleScreenState extends State<EditCycleScreen> {
             maxValue: 40,
             radius: 120,
             child: Text(
-              cycleLength.toString(),
+              widget.cycleLength.toString(),
               style: TextStyle(fontSize: 30, fontFamily: 'Lato'),
             ),
             color: Color(0xfffec9c9),
@@ -80,7 +80,8 @@ class _EditCycleScreenState extends State<EditCycleScreen> {
             unSelectedColor: Colors.white70,
             onDrag: (value) {
               setState(() {
-                this.cycleLength = value;
+                // print('new cycle length is $value');
+                widget.cycleLength = value;
               });
             },
           ),
@@ -89,8 +90,8 @@ class _EditCycleScreenState extends State<EditCycleScreen> {
             margin: EdgeInsets.only(top:160,left: 40,right: 40),
             child: ElevatedButton(
                 onPressed: () {
-                  print('save data and load the home screen');
-                  Navigator.pop(context);
+                  print('set cycle length to and load the home screen');
+                  Navigator.pop(context, widget.cycleLength);
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: doneButtonColor,

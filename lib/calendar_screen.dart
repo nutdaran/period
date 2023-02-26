@@ -1,5 +1,6 @@
 import 'package:draggable_home/draggable_home.dart';
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'Element/floating_bottom_nav_bar.dart';
 import 'constants.dart';
 
@@ -16,41 +17,69 @@ class _CalendarScreenState extends State<CalendarScreen> {
     return Scaffold(
       backgroundColor: primaryColor,
       extendBody: true,
-      bottomNavigationBar: const FloatingBottomNavBar(page: 2,),
+      bottomNavigationBar: const FloatingBottomNavBar(
+        page: 2,
+      ),
       body: DraggableHome(
-          title: Text("hello"),
-          headerWidget: calendarWidget(context),
-      body: [
-
-      ],),
+        title: const Text("calendar"),
+        appBarColor: primaryColor,
+        headerWidget: calendarWidget(context),
+        headerExpandedHeight: 0.5,
+        // fullyStretchable: true,
+        body: [
+          Text(
+            "Today",
+            style: TextStyle(fontFamily: 'Lato', fontSize: 30),
+          ),
+          // listView(),
+          listView(),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Container(
+              margin: const EdgeInsets.only(top: 20, left: 40, right: 40),
+              child: const Text(
+                "Day",
+                style: TextStyle(fontFamily: 'Lato', fontSize: 25),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 20, left: 40, right: 40),
+              child: const Text(
+                "1",
+                style: TextStyle(fontFamily: 'Lato', fontSize: 25),
+              ),
+            )
+          ]),
+        ],
+      ),
     );
   }
 
-  Widget calendarWidget(BuildContext context){
+  Widget calendarWidget(BuildContext context) {
     return Container(
-      child: ElevatedButton(
+      color: primaryColor,
+      padding: EdgeInsets.only(top:60, left:30, right: 30),
+        child: TableCalendar(
+      focusedDay: DateTime.now(),
+      firstDay: DateTime.utc(2022, 01, 01),
+      lastDay: DateTime.utc(2040, 01, 01),
+    ));
+  }
+
+  ListView listView() {
+    return ListView.builder(
+      padding: const EdgeInsets.only(top: 10),
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 2,
+      shrinkWrap: true,
+      itemBuilder: (context, index) => Card(
+        color: Colors.white70,
+        child: ElevatedButton(
           onPressed: () {
-            print('save data and load the home screen');
             Navigator.pushNamed(context, '/memo');
           },
-          style: ElevatedButton.styleFrom(
-              backgroundColor: doneButtonColor,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10))),
-          child: const SizedBox(
-            width: 300,
-            height:60,
-            child: Center(
-              child: Text("Save",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontFamily: 'Lato'),
-              ),
-            ),
-          )),
+          child: Text("Lol"),
+        ),
+      ),
     );
   }
 }
-

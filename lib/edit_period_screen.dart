@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 
 class EditPeriodScreen extends StatefulWidget {
-  const EditPeriodScreen({Key? key}) : super(key: key);
+  int periodLength = 0;
+  EditPeriodScreen({super.key, required this.periodLength});
 
   @override
   State<EditPeriodScreen> createState() => _EditPeriodScreenState();
 }
 
 class _EditPeriodScreenState extends State<EditPeriodScreen> {
-  int value = 4;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,7 @@ class _EditPeriodScreenState extends State<EditPeriodScreen> {
             maxValue: 20,
             radius: 120,
             child: Text(
-              value.toString(),
+              widget.periodLength.toString(),
               style: TextStyle(fontSize: 30, fontFamily: 'Lato'),
             ),
             color: Color(0xfffec9c9),
@@ -80,7 +80,7 @@ class _EditPeriodScreenState extends State<EditPeriodScreen> {
             unSelectedColor: Colors.white70,
             onDrag: (value) {
               setState(() {
-                this.value = value;
+                widget.periodLength = value;
               });
             },
           ),
@@ -90,7 +90,7 @@ class _EditPeriodScreenState extends State<EditPeriodScreen> {
             child: ElevatedButton(
                 onPressed: () {
                   print('save data and load the home screen');
-                  Navigator.pop(context);
+                  Navigator.pop(context,widget.periodLength);
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: doneButtonColor,

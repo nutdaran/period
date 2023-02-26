@@ -13,16 +13,9 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContextcontext) {
     return MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const HomeScreen(),
-        '/calendar':(context) => const CalendarScreen(),
-        '/memo': (context) => const MemoScreen(),
-        '/editCycle': (context) => const EditCycleScreen(),
-        '/editPeriod': (context) => const EditPeriodScreen(),
-      },
+      home: HomeScreen(),
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:number_slide_animation/number_slide_animation.dart';
 import 'package:period/constants.dart';
 import 'package:period/Element/floating_bottom_nav_bar.dart';
 import 'package:circular/circular.dart';
@@ -17,26 +16,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int cycleLength = 0;
   int periodLength = 0;
   double countdownDay = 5;
-
-  _editCycle(BuildContext context) async {
-    final int res = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => EditCycleScreen(cycleLength: cycleLength,)),
-    );
-    setState(() {
-      cycleLength = res;
-      print('return value is $cycleLength');
-    });}
-
-  _editPeriod(BuildContext context) async {
-    final int res = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => EditPeriodScreen(periodLength: periodLength)),
-    );
-    setState(() {
-      periodLength = res;
-      print('return value is $periodLength');
-    });}
 
   @override
   Widget build(BuildContext context) {
@@ -196,5 +175,29 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+
+  _editCycle(BuildContext context) async {
+    final int res = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => EditCycleScreen(cycleLength: cycleLength,)),
+    );
+    setState(() {
+      cycleLength = res;
+      print('return value is $cycleLength');
+    });}
+
+  _editPeriod(BuildContext context) async {
+    final int res = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => EditPeriodScreen(periodLength: periodLength)),
+    );
+    setState(() {
+      periodLength = res;
+      print('return value is $periodLength');
+    });}
+
+  int dayCountdown(int cycle) {
+    return DateTime.now().day + cycle;
   }
 }

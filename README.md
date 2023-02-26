@@ -13,8 +13,8 @@ I decided to create an application that help reminding the user the ovulation da
 make a note of period blood to use for further purpose like seeing an obstetrician.
 
 ## Features
-- showing the next ovulation day
-- calculate the next ovulation day
+- calculate the next period day
+- noti for reminding the coming up period day
 - memo the color, texture, and flow of the period
 
 ## UI design

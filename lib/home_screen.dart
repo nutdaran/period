@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
               margin: const EdgeInsets.only(top: 15, left: 40, right: 40),
               child: Row(children: const [
                 Text(
-                  "Ovulation in",
+                  "Nex Period in",
                   style: TextStyle(
                       fontSize: 25, color: blackColor, fontFamily: 'Lato'),
                 ),
@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
               radius: 100,
               color: const Color(0xfffec9c9),
               value: countdownDay,
-              //parameter = number of day before ovulation
+              //parameter = number of day before next period
               sliderColor: primaryColor,
               unSelectedColor: Colors.white70,
               textStyle: const TextStyle(

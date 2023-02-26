@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
               margin: const EdgeInsets.only(top: 15, left: 40, right: 40),
               child: Row(children: const [
                 Text(
-                  "Nex Period in",
+                  "Next Period in",
                   style: TextStyle(
                       fontSize: 25, color: blackColor, fontFamily: 'Lato'),
                 ),

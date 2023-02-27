@@ -18,19 +18,33 @@ class CalendarScreen extends StatefulWidget {
 class _CalendarScreenState extends State<CalendarScreen> {
   Color color = primaryColor;
   String texture = "Texture";
-  String flow = "Flow";
-  int day = 0;
+  static String flow = "Flow";
+  static Color flowColor = primaryColor;
+  static int day = 0;
 
   @override
   void initState() {
-    getDay();
+    getData();
     super.initState();
   }
 
-  Future<void> getDay() async{
+  Future<void> getData() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     day = (DateTime.now().day - DateTime.parse( pref.getString('date') as String).day) + 1;
-  }
+
+    if (pref.getString('flow') == null) {
+      await pref.setString('flow', "Flow");
+    }
+    if (pref.getString('texture') == null) {
+      await pref.setString('texture', "Texture");
+    }
+    if (pref.getString('color') == null) {
+      await pref.setString('color', "primaryColor");
+    }
+      flow = pref.getString('flow')??"Flow";
+      texture = pref.getString('texture')??"Texture";
+      color = {pref.getString('color')??"primaryColor"} as Color;
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -56,12 +70,15 @@ class _CalendarScreenState extends State<CalendarScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              /***
+               * Color
+               */
               SizedBox(
                   width: 120,
                   height: 140,
                   child: ElevatedButton(
                       onPressed: () {
-                        _addColor(context);
+                        _colorMemo(context);
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: color,
@@ -79,15 +96,18 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       )
                   )
               ),
+              /***
+               * Texture
+               */
               SizedBox(
                   width: 120,
                   height: 140,
                   child: ElevatedButton(
                       onPressed: () {
-                        _addTexture(context);
+                        _textureMemo(context);
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: color,
+                          backgroundColor: primaryColor,
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
@@ -102,15 +122,18 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       )
                   )
               ),
+              /***
+               * Flow
+               */
               SizedBox(
                   width: 120,
                   height: 140,
                   child: ElevatedButton(
                       onPressed: () {
-                        _addFlow(context);
+                        _flowMemo(context);
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: color,
+                          backgroundColor: flowColor,
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
@@ -158,36 +181,49 @@ class _CalendarScreenState extends State<CalendarScreen> {
         ));
   }
 
-  _addColor(BuildContext context) async {
-    final Color res = await Navigator.push(
+  _flowMemo(BuildContext context) async {
+    final List res = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => ColorMemoScreen()),
+      MaterialPageRoute(
+          builder: (_) => FlowMemoScreen()),
     );
     setState(() {
-      color = res;
-      print('color is updated');
+      flow = res[0];
+      flowColor = res[1];
+      print('return value is $flow');
     });
   }
 
-  _addTexture(BuildContext context) async {
+  _textureMemo(BuildContext context) async {
     final String res = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => TextureMemoScreen()),
+      MaterialPageRoute(
+          builder: (_) => TextureMemoScreen()),
     );
     setState(() {
       texture = res;
-      print('texture is $texture');
+      print('return value is $texture');
     });
   }
 
-  _addFlow(BuildContext context) async {
-    final String res = await Navigator.push(
+  _colorMemo(BuildContext context) async {
+    final Color res = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => FlowMemoScreen()),
+      MaterialPageRoute(
+          builder: (_) => ColorMemoScreen()),
     );
     setState(() {
-      flow = res;
-      print('flow is updated to $flow');
+      color = res;
     });
   }
+
+  //  getFlow() async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   return pref.getString('flow');
+  // }
+
+  // getTexture() async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   return pref.getString('texture');
+  // }
 }

@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   static int cycleLength = 0;
   static int periodLength = 0;
-  late int countdownDay = 0;
+  static int countdownDay = 0;
   Timer? timer;
   bool isItCome = false;
 

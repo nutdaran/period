@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:period/Element/buttonFactory.dart';
 import 'package:period/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ColorMemoScreen extends StatefulWidget {
-  const ColorMemoScreen({Key? key}) : super(key: key);
+  Color color = primaryColor;
+  ColorMemoScreen({Key? key}) : super(key: key);
 
   @override
   State<ColorMemoScreen> createState() => _ColorMemoScreenState();
@@ -22,7 +24,7 @@ class _ColorMemoScreenState extends State<ColorMemoScreen> {
           ),
           color: Colors.black,
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context,widget.color);
           },
         ),
         elevation: 0,
@@ -58,45 +60,57 @@ class _ColorMemoScreenState extends State<ColorMemoScreen> {
                   theColor: Color(0xffff9981),
                   data: "Pink",
                   theOnPressedFunc: () {
+                    setColor("Color(0xffff9981)");
                     Navigator.pop(context, Color(0xffff9981));
                   }),
               buttonFactory(
                   theColor: Color(0xfffe9154),
                   data: "Orange",
                   theOnPressedFunc: () {
+                    setColor("Color(0xfffe9154)");
                     Navigator.pop(context, Color(0xfffe9154));
                   }),
               buttonFactory(
                   theColor: Color(0xfffe4c1d),
                   data: "Bright Red",
                   theOnPressedFunc: () {
+                    setColor("Color(0xfffe4c1d)");
                     Navigator.pop(context, Color(0xfffe4c1d));
                   }),
               buttonFactory(
                   theColor: Color(0xffd06295),
                   data: "Purple",
                   theOnPressedFunc: () {
+                    setColor("Color(0xffd06295)");
                     Navigator.pop(context, Color(0xffd06295));
                   }),
               buttonFactory(
                   theColor: Color(0xffa22800),
                   data: "Brown",
                   theOnPressedFunc: () {
+                    setColor("Color(0xffa22800)");
                     Navigator.pop(context, Color(0xffa22800));
                   }),
               buttonFactory(
                   theColor: Color(0xff870101),
                   data: "Dark Red",
                   theOnPressedFunc: () {
+                    setColor("Color(0xff870101)");
                     Navigator.pop(context, Color(0xff870101));
                   }),
               buttonFactory(
                   theColor: Color(0xff727272),
                   data: "Grey",
                   theOnPressedFunc: () {
+                    setColor("Color(0xff727272)");
                     Navigator.pop(context, Color(0xff727272));
                   }),
             ])),
       ]));
+  }
+
+  setColor(String color) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.setString('color', color);
   }
 }

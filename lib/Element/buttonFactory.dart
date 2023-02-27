@@ -17,10 +17,8 @@ class buttonFactory extends StatelessWidget {
       margin: const EdgeInsets.only(top: 20, left: 40, right: 40),
       child: Column(children: [
         ElevatedButton(
-          onPressed: () {
-            print('save data and load the home screen');
-            Navigator.pop(context);
-          },
+          onPressed: theOnPressedFunc
+          ,
           style: ElevatedButton.styleFrom(
               backgroundColor: theColor,
               elevation: 0,

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:period/Element/buttonFactory.dart';
 import 'package:period/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TextureMemoScreen extends StatefulWidget {
-  const TextureMemoScreen({Key? key}) : super(key: key);
+  String texture = "Texture";
+  TextureMemoScreen({Key? key}) : super(key: key);
 
   @override
   State<TextureMemoScreen> createState() => _TextureMemoScreenState();
 }
 
 class _TextureMemoScreenState extends State<TextureMemoScreen> {
-  late String texture;
 
   @override
   Widget build(BuildContext context) {
@@ -63,32 +64,37 @@ class _TextureMemoScreenState extends State<TextureMemoScreen> {
                         theColor: primaryColor,
                         data: "Clots",
                         theOnPressedFunc: () {
-                          texture = "Clots";
-                          Navigator.pop(context, texture);
+                          setTexture("Clots");
+                          Navigator.pop(context, "Clots");
                         }),
                     buttonFactory(
                         theColor: primaryColor,
                         data: "Jelly-like",
                         theOnPressedFunc: () {
-                          texture = "Jelly-like";
-                          print("$texture");
-                          Navigator.pop(context, texture);
+                          setTexture("Jelly-like");
+                          Navigator.pop(context, "Jelly-like");
                         }),
                     buttonFactory(
                         theColor: primaryColor,
                         data: "No clots",
                         theOnPressedFunc: () {
-                          texture = "No clots";
-                          Navigator.pop(context,texture);
+                          setTexture("No clots");
+                          Navigator.pop(context, "No clots");
                         }),
                     buttonFactory(
                         theColor: primaryColor,
                         data: "Watery",
                         theOnPressedFunc: () {
-                          texture = "Watery";
-                          Navigator.pop(context,texture);
+                          setTexture("Watery");
+                          Navigator.pop(context, "Watery");
                         }),
                   ])),
             ]));
   }
+
+  setTexture(String texture) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.setString('texture', texture);
+  }
+
 }

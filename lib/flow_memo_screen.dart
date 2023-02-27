@@ -4,13 +4,15 @@ import 'package:period/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FlowMemoScreen extends StatefulWidget {
-  const FlowMemoScreen({Key? key}) : super(key: key);
+  String flow = "Flow";
+  FlowMemoScreen({Key? key}) : super(key: key);
 
   @override
   State<FlowMemoScreen> createState() => _FlowMemoScreenState();
 }
 
 class _FlowMemoScreenState extends State<FlowMemoScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +25,7 @@ class _FlowMemoScreenState extends State<FlowMemoScreen> {
             ),
             color: Colors.black,
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(context,[widget.flow,primaryColor]);
             },
           ),
           elevation: 0,
@@ -59,31 +61,36 @@ class _FlowMemoScreenState extends State<FlowMemoScreen> {
                     theColor: Colors.red.shade100,
                     data: "20%",
                     theOnPressedFunc: () {
-                      Navigator.pop(context,"20%");
+                      setFlow("20%");
+                      Navigator.pop(context,["20%",Colors.red.shade100]);
                     }),
                 buttonFactory(
                     theColor: Colors.red.shade200,
                     data: "40%",
                     theOnPressedFunc: () {
-                      Navigator.pop(context,"40%");
+                      setFlow("40%");
+                      Navigator.pop(context,["40%",Colors.red.shade200]);
                     }),
                 buttonFactory(
                     theColor: Colors.red.shade300,
                     data: "60%",
                     theOnPressedFunc: () {
-                      Navigator.pop(context, "60%");
+                      setFlow("60%");
+                      Navigator.pop(context,["60%",Colors.red.shade300]);
                     }),
                 buttonFactory(
                     theColor: Colors.red.shade400,
                     data: "80%",
                     theOnPressedFunc: () {
-                      Navigator.pop(context, "80%");
+                      setFlow("80%");
+                      Navigator.pop(context,["80%",Colors.red.shade400]);
                     }),
                 buttonFactory(
                     theColor: Colors.red.shade500,
                     data: "100%",
                     theOnPressedFunc: () {
-                      Navigator.pop(context, "100%");
+                      setFlow("100%");
+                      Navigator.pop(context,["100%",Colors.red.shade500]);
                     }),
               ])),
     ])

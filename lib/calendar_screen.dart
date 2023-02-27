@@ -16,8 +16,8 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-  Color color = primaryColor;
-  String texture = "Texture";
+  static Color color = primaryColor;
+  static String texture = "Texture";
   static String flow = "Flow";
   static Color flowColor = primaryColor;
   static int day = 0;
@@ -41,9 +41,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
     if (pref.getString('color') == null) {
       await pref.setString('color', "primaryColor");
     }
+    if (pref.getString('flowColor') == null) {
+      await pref.setString('flowColor', "primaryColor");
+    }
       flow = pref.getString('flow')??"Flow";
       texture = pref.getString('texture')??"Texture";
       color = {pref.getString('color')??"primaryColor"} as Color;
+      flowColor = {pref.getString('flowColor')??"primaryColor"} as Color;
     }
 
   @override

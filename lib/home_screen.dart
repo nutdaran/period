@@ -18,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static int cycleLength = 0;
   static int periodLength = 0;
   static int countdownDay = 0;
+  Duration countdown = Duration(days: cycleLength);
   Timer? timer;
   bool isItCome = false;
 
@@ -93,10 +94,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: primaryColor,
                 shape: BoxShape.circle,
                 boxShadow: [BoxShadow(
-    color: Colors.grey.withOpacity(0.3),
+    color: Colors.grey.withOpacity(0.4),
     spreadRadius: 8,
     blurRadius: 7,
-                  offset: Offset(0, 3),
+                  offset: Offset(0, 6),
                 )
     ]
               ),
@@ -244,11 +245,11 @@ class _HomeScreenState extends State<HomeScreen> {
   // void startCountdown() {
   //   timer = Timer.periodic(const Duration(days: 1), (_) => dayCountdown());
   // }
-
+  //
   // void dayCountdown() {
   //   final reduceSec = 1;
   //   setState(() {
-  //     final seconds = countdownDay.inDays - reduceSec;
+  //     final seconds = countdownDay - reduceSec;
   //     if (countdownDay.inDays == 0) {
   //       if(isItCome == false){
   //         countdownDay = Duration(days: periodLength);

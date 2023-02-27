@@ -164,7 +164,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     );
     setState(() {
       texture = res;
-      print('texture is updated');
+      print('texture is $texture');
     });
   }
 

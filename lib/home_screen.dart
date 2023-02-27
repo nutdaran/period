@@ -1,7 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:period/constants.dart';
 import 'package:period/Element/floating_bottom_nav_bar.dart';
-import 'package:circular/circular.dart';
 import 'package:period/edit_cycle_screen.dart';
 import 'package:period/edit_period_screen.dart';
 
@@ -13,16 +14,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int cycleLength = 0;
+  static int cycleLength = 0;
   int periodLength = 0;
-  double countdownDay = 5;
+  late Duration countdownDay = Duration(days: cycleLength);
+  Timer? timer;
+  bool isItCome = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xfffffdfd),
       extendBody: true,
-      bottomNavigationBar: const FloatingBottomNavBar(page: 1,), // input pageid
+      bottomNavigationBar: const FloatingBottomNavBar(
+        page: 1,
+      ), // input pageid
       body: Column(
         children: <Widget>[
           /***
@@ -57,33 +62,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ])),
           Container(
-            margin: const EdgeInsets.only(top: 15),
-            child: CircularViewer(
-              maxValue: 60,
-              radius: 100,
-              color: const Color(0xfffec9c9),
-              value: countdownDay,
-              //parameter = number of day before next period
-              sliderColor: primaryColor,
-              unSelectedColor: Colors.white70,
-              textStyle: const TextStyle(
-                  color: blackColor, fontSize: 30, fontFamily: 'Lato'),
+              margin: const EdgeInsets.only(top: 15),
+              width: 200,
+              height: 200,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  boxShadow: const [
-                    BoxShadow(
-                        offset: Offset(-10, -10),
-                        color: Colors.white,
-                        blurRadius: 20,
-                        spreadRadius: 1),
-                    BoxShadow(
-                        offset: Offset(10, 10),
-                        color: Color.fromARGB(155, 158, 158, 158),
-                        blurRadius: 15,
-                        spreadRadius: 1)
-                  ]),
-            ),
-          ),
+                color: primaryColor,
+                shape: BoxShape.circle,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "${countdownDay.inDays}",
+                    style: TextStyle(fontSize: 60,
+                    fontFamily: 'Lato'),
+                  ),
+                ],
+              ),
+              ),
 
           /***
            * Cycle Length
@@ -94,6 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 print('load edit cycle length screen');
                 _editCycle(context);
+                // countdownDay = Duration(days: cycleLength);
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -116,7 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontFamily: 'Lato'),
                         ),
                         Container(
-                          child: Text("$cycleLength",
+                          child: Text(
+                            "$cycleLength",
                             style: const TextStyle(
                                 color: blackColor,
                                 fontSize: 30,
@@ -160,7 +158,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontFamily: 'Lato'),
                         ),
                         Container(
-                          child: Text("$periodLength",
+                          child: Text(
+                            "$periodLength",
                             style: const TextStyle(
                                 color: blackColor,
                                 fontSize: 30,
@@ -180,24 +179,69 @@ class _HomeScreenState extends State<HomeScreen> {
   _editCycle(BuildContext context) async {
     final int res = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => EditCycleScreen(cycleLength: cycleLength,)),
+      MaterialPageRoute(
+          builder: (_) => EditCycleScreen(
+                cycleLength: cycleLength,
+              )),
     );
     setState(() {
       cycleLength = res;
       print('return value is $cycleLength');
-    });}
+      countdownDay = Duration(days: res);
+      print(countdownDay.inDays.toString());
+      startCountdown();
+    });
+  }
 
   _editPeriod(BuildContext context) async {
     final int res = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => EditPeriodScreen(periodLength: periodLength)),
+      MaterialPageRoute(
+          builder: (_) => EditPeriodScreen(periodLength: periodLength)),
     );
     setState(() {
       periodLength = res;
       print('return value is $periodLength');
-    });}
+    });
+  }
 
-  int dayCountdown(int cycle) {
-    return DateTime.now().day + cycle;
+  void startCountdown() {
+    timer = Timer.periodic(const Duration(days: 1), (_) => dayCountdown());
+  }
+
+  void dayCountdown() {
+    final reduceSec = 1;
+    setState(() {
+      final seconds = countdownDay.inDays - reduceSec;
+      if (countdownDay.inDays == 0) {
+        if(isItCome == false){
+          countdownDay = Duration(days: periodLength);
+          isItCome = true;
+          startCountdown();
+
+        } else {
+          countdownDay = Duration(days: cycleLength);
+          isItCome = false;
+          startCountdown();
+        }
+
+        //noti
+      } else {
+        countdownDay = Duration(days: seconds);
+      }
+    });
+  }
+
+  void stopTime() {
+    setState(() {
+      timer!.cancel();
+    });
+  }
+
+  void resetTime() {
+    stopTime();
+    setState(() {
+      countdownDay = Duration(days: cycleLength);
+    });
   }
 }

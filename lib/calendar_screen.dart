@@ -2,6 +2,7 @@ import 'package:draggable_home/draggable_home.dart';
 import 'package:flutter/material.dart';
 import 'package:period/color_memo_screen.dart';
 import 'package:period/texture_memo_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'Element/floating_bottom_nav_bar.dart';
 import 'constants.dart';
@@ -18,6 +19,18 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Color color = primaryColor;
   String texture = "Texture";
   String flow = "Flow";
+  int day = 0;
+
+  @override
+  void initState() {
+    getDay();
+    super.initState();
+  }
+
+  Future<void> getDay() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    day = (DateTime.now().day - DateTime.parse( pref.getString('date') as String).day) + 1;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,8 +137,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             ),
             Container(
               margin: const EdgeInsets.only(top: 20, left: 40, right: 40),
-              child: const Text(
-                "1",
+              child: Text('$day',
                 style: TextStyle(fontFamily: 'Lato', fontSize: 25),
               ),
             )

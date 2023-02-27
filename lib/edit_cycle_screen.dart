@@ -1,5 +1,6 @@
 import 'package:circular/circular.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'constants.dart';
 
 class EditCycleScreen extends StatefulWidget {
@@ -11,6 +12,7 @@ class EditCycleScreen extends StatefulWidget {
 }
 
 class _EditCycleScreenState extends State<EditCycleScreen> {
+
   // int cycleLength; // shared pref
   @override
   Widget build(BuildContext context) {
@@ -90,8 +92,9 @@ class _EditCycleScreenState extends State<EditCycleScreen> {
             margin: EdgeInsets.only(top:160,left: 40,right: 40),
             child: ElevatedButton(
                 onPressed: () {
-                  print('set cycle length to and load the home screen');
-                  Navigator.pop(context, widget.cycleLength);
+                  print('${widget.cycleLength}');
+                  saveInt(widget.cycleLength);
+                  Navigator.pop(context,widget.cycleLength);
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: doneButtonColor,
@@ -112,5 +115,10 @@ class _EditCycleScreenState extends State<EditCycleScreen> {
                 )))
       ]),
     );
+  }
+
+  saveInt(int cycle) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.setInt('cycleLength', cycle);
   }
 }

@@ -5,6 +5,7 @@ import 'package:period/constants.dart';
 import 'package:period/Element/floating_bottom_nav_bar.dart';
 import 'package:period/edit_cycle_screen.dart';
 import 'package:period/edit_period_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,10 +16,33 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   static int cycleLength = 0;
-  int periodLength = 0;
-  late Duration countdownDay = Duration(days: cycleLength);
+  static int periodLength = 0;
+  late int countdownDay = 0;
   Timer? timer;
   bool isItCome = false;
+
+  @override
+  void initState() {
+    init();
+    super.initState();
+  }
+
+  Future<void> init() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    // await pref.clear();
+    if (pref.getInt('cycleLength') == null) {
+      await pref.setInt('cycleLength', 0);
+    }
+      cycleLength = pref.getInt('cycleLength')??0;
+    if (pref.getInt('periodLength') == null) {
+      await pref.setInt('periodLength', 0);
+    }
+      periodLength = pref.getInt('periodLength')??0;
+    if (pref.getString('date') == null) {
+      await pref.setString('date', DateTime.now().toString());
+    }
+    countdownDay = cycleLength - (DateTime.now().day - DateTime.parse( pref.getString('date') as String).day);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
       extendBody: true,
       bottomNavigationBar: const FloatingBottomNavBar(
         page: 1,
-      ), // input pageid
+      ), // input page id
       body: Column(
         children: <Widget>[
           /***
@@ -68,13 +92,20 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: BoxDecoration(
                 color: primaryColor,
                 shape: BoxShape.circle,
+                boxShadow: [BoxShadow(
+    color: Colors.grey.withOpacity(0.3),
+    spreadRadius: 8,
+    blurRadius: 7,
+                  offset: Offset(0, 3),
+                )
+    ]
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "${countdownDay.inDays}",
-                    style: TextStyle(fontSize: 60,
+                    "$countdownDay",
+                    style: TextStyle(fontSize: 50,
                     fontFamily: 'Lato'),
                   ),
                 ],
@@ -90,6 +121,10 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 print('load edit cycle length screen');
                 _editCycle(context);
+                setState(() {
+                  countdownDay = cycleLength;
+                });
+                // Navigator.push(context, MaterialPageRoute(builder: (_) ))
                 // countdownDay = Duration(days: cycleLength);
               },
               style: ElevatedButton.styleFrom(
@@ -186,10 +221,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
     setState(() {
       cycleLength = res;
+      countdownDay = cycleLength;
       print('return value is $cycleLength');
-      countdownDay = Duration(days: res);
-      print(countdownDay.inDays.toString());
-      startCountdown();
+      // countdownDay = Duration(days: res);
+      // print(countdownDay.inDays.toString());
+      // startCountdown();
     });
   }
 
@@ -205,43 +241,53 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void startCountdown() {
-    timer = Timer.periodic(const Duration(days: 1), (_) => dayCountdown());
+  // void startCountdown() {
+  //   timer = Timer.periodic(const Duration(days: 1), (_) => dayCountdown());
+  // }
+
+  // void dayCountdown() {
+  //   final reduceSec = 1;
+  //   setState(() {
+  //     final seconds = countdownDay.inDays - reduceSec;
+  //     if (countdownDay.inDays == 0) {
+  //       if(isItCome == false){
+  //         countdownDay = Duration(days: periodLength);
+  //         isItCome = true;
+  //         startCountdown();
+  //
+  //       } else {
+  //         countdownDay = Duration(days: cycleLength);
+  //         isItCome = false;
+  //         startCountdown();
+  //       }
+  //
+  //       //noti
+  //     } else {
+  //       countdownDay = Duration(days: seconds);
+  //     }
+  //   });
+  // }
+
+  // void stopTime() {
+  //   setState(() {
+  //     timer!.cancel();
+  //   });
+  // }
+  //
+  // void resetTime() {
+  //   stopTime();
+  //   setState(() {
+  //     countdownDay = Duration(days: cycleLength);
+  //   });
+  // }
+
+  getCycle() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    return pref.getInt('cycleLength');
   }
 
-  void dayCountdown() {
-    final reduceSec = 1;
-    setState(() {
-      final seconds = countdownDay.inDays - reduceSec;
-      if (countdownDay.inDays == 0) {
-        if(isItCome == false){
-          countdownDay = Duration(days: periodLength);
-          isItCome = true;
-          startCountdown();
-
-        } else {
-          countdownDay = Duration(days: cycleLength);
-          isItCome = false;
-          startCountdown();
-        }
-
-        //noti
-      } else {
-        countdownDay = Duration(days: seconds);
-      }
-    });
-  }
-
-  void stopTime() {
-    setState(() {
-      timer!.cancel();
-    });
-  }
-
-  void resetTime() {
-    stopTime();
-    setState(() {
-      countdownDay = Duration(days: cycleLength);
-    });
+  setDate() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.setString('date', DateTime.now().toString());
   }
 }

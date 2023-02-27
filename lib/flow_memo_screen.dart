@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:period/Element/buttonFactory.dart';
 import 'package:period/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FlowMemoScreen extends StatefulWidget {
   const FlowMemoScreen({Key? key}) : super(key: key);
@@ -87,5 +88,10 @@ class _FlowMemoScreenState extends State<FlowMemoScreen> {
               ])),
     ])
     );
+  }
+
+  setFlow(String flow) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.setString('flow', flow);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:circular/circular.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'constants.dart';
 
 class EditPeriodScreen extends StatefulWidget {
@@ -90,6 +91,7 @@ class _EditPeriodScreenState extends State<EditPeriodScreen> {
             child: ElevatedButton(
                 onPressed: () {
                   print('save data and load the home screen');
+                  setPeriod(widget.periodLength);
                   Navigator.pop(context,widget.periodLength);
                 },
                 style: ElevatedButton.styleFrom(
@@ -111,5 +113,10 @@ class _EditPeriodScreenState extends State<EditPeriodScreen> {
                 )))
       ]),
     );
+  }
+
+  setPeriod(int period) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.setInt('periodLength', period);
   }
 }

@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static int cycleLength = 0;
   static int periodLength = 0;
   static int countdownDay = 0;
-  Duration countdown = Duration(days: cycleLength);
+  Duration countdown = Duration(days: 0);
   Timer? timer;
   bool isItCome = false;
 
@@ -124,6 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 _editCycle(context);
                 setState(() {
                   countdownDay = cycleLength;
+                  countdown = Duration(days: cycleLength);
                 });
                 // Navigator.push(context, MaterialPageRoute(builder: (_) ))
                 // countdownDay = Duration(days: cycleLength);
@@ -242,45 +243,43 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  // void startCountdown() {
-  //   timer = Timer.periodic(const Duration(days: 1), (_) => dayCountdown());
-  // }
-  //
-  // void dayCountdown() {
-  //   final reduceSec = 1;
-  //   setState(() {
-  //     final seconds = countdownDay - reduceSec;
-  //     if (countdownDay.inDays == 0) {
-  //       if(isItCome == false){
-  //         countdownDay = Duration(days: periodLength);
-  //         isItCome = true;
-  //         startCountdown();
-  //
-  //       } else {
-  //         countdownDay = Duration(days: cycleLength);
-  //         isItCome = false;
-  //         startCountdown();
-  //       }
-  //
-  //       //noti
-  //     } else {
-  //       countdownDay = Duration(days: seconds);
-  //     }
-  //   });
-  // }
+  void startCountdown() {
+    timer = Timer.periodic(const Duration(days: 1), (_) => dayCountdown());
+  }
 
-  // void stopTime() {
-  //   setState(() {
-  //     timer!.cancel();
-  //   });
-  // }
-  //
-  // void resetTime() {
-  //   stopTime();
-  //   setState(() {
-  //     countdownDay = Duration(days: cycleLength);
-  //   });
-  // }
+  void dayCountdown() {
+    final reduceSec = 1;
+    setState(() {
+      final day = countdown.inDays - reduceSec;
+      if (countdown.inDays == 0) {
+        if(isItCome == false){
+          countdown = Duration(days: periodLength);
+          isItCome = true;
+          startCountdown();
+        } else {
+          countdown = Duration(days: cycleLength);
+          isItCome = false;
+          startCountdown();
+        }
+        //noti
+      } else {
+        countdown = Duration(days: day);
+      }
+    });
+  }
+
+  void stopTime() {
+    setState(() {
+      timer!.cancel();
+    });
+  }
+
+  void resetTime() {
+    stopTime();
+    setState(() {
+      countdown = Duration(days: cycleLength);
+    });
+  }
 
   getCycle() async {
     SharedPreferences pref = await SharedPreferences.getInstance();

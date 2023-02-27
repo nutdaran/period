@@ -220,14 +220,4 @@ class _CalendarScreenState extends State<CalendarScreen> {
       color = res;
     });
   }
-
-  //  getFlow() async {
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-  //   return pref.getString('flow');
-  // }
-
-  // getTexture() async {
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-  //   return pref.getString('texture');
-  // }
 }
